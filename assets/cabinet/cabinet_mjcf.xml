@@ -1,0 +1,56 @@
+<mujoco>
+    <default class="hingecabinet">
+      <joint damping="2" frictionloss="2" armature=".01" limited="true"/> 
+      <default class="hinge_collision">
+          <!-- <geom conaffinity="1" condim="3" contype="0" group="4" margin="0.001" material="hinge_collision_blue" solimp=".8 .9 .01" solref=".02 1"/> -->
+          <geom type="box" material="white-wood"/> 
+      </default>
+    </default>
+    <asset>
+        <!-- cabinet -->
+        <texture file="assets/textures/white-wood.png" type="2d" name="tex-white-wood"/>
+        <material name="white-wood" reflectance="0.6" texrepeat="15 15" texture="tex-white-wood" texuniform="true"/>
+
+        <material name="quiet-black" rgba=".15 .15 .15 1" reflectance=".2" shininess=".2" />
+    </asset>
+    
+    <worldbody>
+    <body name="cabinet" pos="-0.7 0.5 0.5"  quat="0.707 0 0 0.707" >
+    <!-- <freejoint name="cabinet_joint" />  -->
+        <body name="cabinet_body" pos = "0. 0. 0.1">
+        
+            <geom class="hinge_collision" name="cabinet_right" pos="0.34 0 0" size="0.01 0.2 0.6" type="box" mass=".2"/>
+            <geom class="hinge_collision" name="cabinet_left" pos="-0.34 0 0" size="0.01 0.2 0.6" type="box" mass=".2"/>
+            <geom class="hinge_collision" name="cabinet_top" pos="0 0 0.3" size="0.35 0.2 0.03" type="box" mass=".2"/>
+            <geom class="hinge_collision" name="cabinet_bottom" pos="0 0 -0.3" size="0.35 0.2 0.03" type="box" mass=".2"/>
+            <geom class="hinge_collision" name="cabinet_back" pos="0 0.19 0" size="0.33 0.015 0.3" type="box" mass=".2"/>            
+            <geom class="hinge_collision" name="cabinet_panel" pos="0 0 0" size="0.33 0.2 0.03" type="box" mass=".2" />
+
+            <body name="cabinet_leftdoor" pos="-0.34 -0.2 0">
+            <geom name="leftdoor" class="hinge_collision" pos="0.17 -0.02 0" size="0.16 0.015 0.6" type="box" mass="3"/>
+            <body name="key-reader" pos="0 0 0">
+            <geom material="quiet-black" name="keyreader" pos="0.17 -0.05 0.2" size="0.08 0.015 0.1" type="box" mass="3"/>
+            </body>
+            </body>
+            
+            <body name="cabinet_rightdoor" pos="0.34 -0.2 0">
+                <joint axis="0 0 1" name="rightdoorhinge" range="0 2.6" damping="100"/> 
+                <inertial mass=".6" pos="-0.03 -0.02 0" diaginertia="0.01 0.01 0.01"/>
+                <!-- Make the door bigger along z-axis -->
+                <geom name="rightdoor" class="hinge_collision" pos="-0.17 -0.02 0" size="0.16 0.015 0.6" type="box" mass="3"/>
+                <geom name="righthandle" class="hinge_collision" material="quiet-black" pos="-0.23 -0.08 0.15" size="0.015 0.4" type="cylinder" mass=".2"/>
+                <geom name="righthandle_top" class="hinge_collision" pos="-0.23 -0.061 0.08" material="quiet-black" euler="1.57 0 0" size="0.013 0.02 0.02" type="cylinder" mass=".02"/>
+                <geom name="righthandle_bottom" class="hinge_collision" pos="-0.23 -0.061 -0.08" material="quiet-black" euler="1.57 0 0" size="0.013 0.02 0.02" type="cylinder" mass=".02"/>
+                <site name="cabinet_rdoor" type="sphere"  pos="-0.23 -0.13 0" size=".02" group="3" rgba="0 1 0 1" euler="1.57 0 1.57"/>
+                <body name="right_door_handle" pos="-0.23 -0.1 0" euler="1.57 0 1.57"/>
+                <site name="right_door_handle" pos="-0.23 -0.1 0" euler="1.57 0 1.57" group="3"/>
+                <!-- <geom class="hinge_collision" pos="-0.302 -0.128 0" size="0.022 0.16" type="cylinder" mass=".1"/>
+                <geom class="hinge_collision" pos="-0.302 -0.061 -0.114" euler="1.57 0 0" size="0.019 0.053 0.02" type="cylinder" mass=".02"/>
+                <geom class="hinge_collision" pos="-0.302 -0.061 0.114" euler="1.57 0 0" size="0.019 0.053 0.02" type="cylinder" mass=".02"/>
+                <geom class="hinge_collision" pos="-0.185 -.015 0" size="0.193 0.03 0.2" type="box" mass=".2"/>
+                <site type="sphere" name="rightdoor_site" pos="-0.302 -0.128 0" size=".01" group="3" rgba="0 1 0 1"/> -->
+            </body>
+        </body>
+    </body>
+    </worldbody>
+</mujoco>
